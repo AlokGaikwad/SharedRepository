@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class redBus_Script {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws InterruptedException
 	{
 		/*ChromeOptions Options = new ChromeOptions();
 
@@ -100,19 +100,19 @@ public class redBus_Script {
 
 		{
 
-		                String toL = tLocation.getText();
+		String toL = tLocation.getText();
 
-		                System.out.println(toL);
+		System.out.println(toL);
 
-		                if(toL.equals("Bangalore Intl Airport"))
+		if(toL.equals("Bangalore Intl Airport"))
 
-		                {
+		{
 
-		                                tLocation.click();
+		tLocation.click();
 
-		                                break;
+		break;
 
-		                }
+		}
 
 		}
 
@@ -164,16 +164,13 @@ public class redBus_Script {
 
 		 
 
-		double currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
+		int currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
 
-		int currentDate = (int) (currentDate +2);
+		int newDate1 = (int) (currentDate +2);
 
-		System.out.println(currentDate);
+		System.out.println(newDate1);
 
 		
 		}
-		}
 
 	}
-
-}
