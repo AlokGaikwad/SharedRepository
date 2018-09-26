@@ -7,15 +7,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class redBus_Script {
+public class redBus_Script 
+{
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws InterruptedException
 	{
 		/*ChromeOptions Options = new ChromeOptions();
 
 		Options.addArguments("---enable-notifications");*/
 
-		System.setProperty("webdriver.chrome.driver", "C:\\Eclipse\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\SeleniumPractice\\chromedriver_win32\\chromedriver.exe");
 
 		WebDriver driver = new ChromeDriver();
 
@@ -164,15 +165,14 @@ public class redBus_Script {
 
 		 
 
-		double currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
+		int currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
 
-		int currentDate = (int) (currentDate +2);
+		currentDate = currentDate +2;
 
 		System.out.println(currentDate);
 
 		
-		}
-		}
+
 
 	}
 
