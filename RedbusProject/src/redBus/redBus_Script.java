@@ -164,7 +164,7 @@ public class redBus_Script {
 
 		 
 
-		int currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
+		double currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
 
 		int newDate1 = (int) (currentDate +2);
 
