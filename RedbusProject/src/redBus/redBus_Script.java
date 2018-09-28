@@ -1,13 +1,20 @@
 package redBus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class redBus_Script {
+	
+	
 
 	public static void main(String[] args) throws InterruptedException
 	{
@@ -59,7 +66,7 @@ public class redBus_Script {
 
 		}
 
-		 
+		 Thread.sleep(5000);
 
 		WebElement from = driver.findElement(By.xpath("//input[contains(@id,'src')]"));
 
@@ -122,29 +129,23 @@ public class redBus_Script {
 
 		 
 
-		/*DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd");
 
-		Date date = new Date();
-
+		/*Date date = new Date();
+		
 		String systemdateandtime= dateFormat.format(date);
 
 		System.out.println("Current date and time: --- "+systemdateandtime);*/
-
-		 
-
-		 
 
 		try
 
 		{
 
-		                WebElement calendarVisible = driver.findElement(By.xpath("//*[contains(@class,'rb-calendar')]"));
+			WebElement calendarVisible = driver.findElement(By.xpath("//*[contains(@class,'rb-calendar')]"));
 
-		               
+		    String classname= calendarVisible.getAttribute("class");
 
-		                String classname= calendarVisible.getAttribute("class");
-
-		                System.out.println("Calendar is visible");
+		    System.out.println("Calendar is visible");
 
 		}
 
@@ -161,15 +162,62 @@ public class redBus_Script {
 		System.out.println("Calendar forcefully opened");
 
 		}
+		
+		int currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.add(Calendar.DAY_OF_MONTH, 2);
+		
+		String JStartdate = dateFormat.format(cal.getTime());
 
-		 
+		System.out.println("Journey start date :" + JStartdate);
+		
+		//System.out.println("CurrentDate: " dateFormat.format(cal.getTime()));
 
-		double currentDate = Integer.parseInt(driver.findElement(By.xpath("//td[contains(@class,'current day')]")).getAttribute("textContent"));
+		/*int newDate = (int) (currentDate +2);
 
-		int newDate = (int) (currentDate +2);
+		System.out.println(newDate);*/
+		
+		try
+		{
+		WebElement jStartdate = driver.findElement(By.xpath("//div[contains(@id,'rb-calendar_onward_cal')]//following-sibling::td[contains(text(),'"+JStartdate+"')]"));
+		
+		jStartdate.click();
+		
+		System.out.println("New Journey date selected");
+		}
+		
+		catch(Exception e)
+		{
+			
+			System.out.println("Journey date not selected.\n"+e.getMessage());
+		}
+		
+		WebElement openReturncal = driver.findElement(By.xpath("//label[contains(@class,'db text-trans-uc')]"));
+		openReturncal.click();
 
-		System.out.println(newDate);
-
+		cal.add(Calendar.DAY_OF_MONTH, 5);
+		String JEnddate = dateFormat.format(cal.getTime());
+		
+		System.out.println(JEnddate);
+		
+		try
+		{
+		WebElement jEnddate = driver.findElement(By.xpath("//div[contains(@id,'rb-calendar_onward_cal')]//following-sibling::td[contains(text(),'"+JEnddate+"')]"));
+		
+		jEnddate.click();
+		
+		System.out.println("Return journey date selected");
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Return Journey date not selected.\n" + ex.getMessage());
+		}
+		
+		WebElement searchBus = driver.findElement(By.className("fl button"));
+		searchBus.click();
+		
 		
 		}
 
