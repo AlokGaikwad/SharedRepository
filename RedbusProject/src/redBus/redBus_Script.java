@@ -194,18 +194,28 @@ public class redBus_Script {
 			System.out.println("Journey date not selected.\n"+e.getMessage());
 		}
 		
-		WebElement openReturncal = driver.findElement(By.xpath("//label[contains(@class,'db text-trans-uc')]"));
+		WebElement openReturncal = driver.findElement(By.xpath("//label[contains(@for,'return_cal')]"));
 		openReturncal.click();
-
-		cal.add(Calendar.DAY_OF_MONTH, 5);
-		String JEnddate = dateFormat.format(cal.getTime());
 		
+		cal.add(Calendar.DAY_OF_MONTH,5);
+		int lastDayofmonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+		if(lastDayofmonth==30)
+		{
+			WebElement nextMonth = driver.findElement(By.xpath("//div[contains(@id,'rb-calendar_return_cal')]//td[contains(@class,'next')]"));
+			nextMonth.click();
+		}
+		else
+		{
+			System.out.println();
+		}
+		String JEnddate = dateFormat.format(cal.getTime());
 		System.out.println(JEnddate);
 		
 		try
 		{
-		WebElement jEnddate = driver.findElement(By.xpath("//div[contains(@id,'rb-calendar_onward_cal')]//following-sibling::td[contains(text(),'"+JEnddate+"')]"));
+		WebElement jEnddate = driver.findElement(By.xpath("//div[contains(@id,'rb-calendar_return_cal')]//following-sibling::td[text()='"+JEnddate+"']"));
 		
+		jEnddate.getText().toString();
 		jEnddate.click();
 		
 		System.out.println("Return journey date selected");
